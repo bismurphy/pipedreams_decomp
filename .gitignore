@@ -1,0 +1,7 @@
+GAME/*
+EXTRACTED/*
+*.bin
+*.cue
+build
+asm
+tools
