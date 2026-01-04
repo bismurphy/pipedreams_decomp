@@ -19,7 +19,7 @@ CPP_FLAGS       += -Dmips -D__GNUC__=2 -D__OPTIMIZE__ -D__mips__ -D__mips -Dpsx 
 # This is your compiler - be very prepared to change it.
 # Get your compiler from: https://github.com/decompals/old-gcc/releases
 # select any gcc-#.#.#-psx.tar.gz file.
-CC1PSX          := ./bin/cc1-psx-263
+CC1PSX          := ./bin/cc1-psx-272
 CC              := $(CC1PSX)
 CC_FLAGS        += -G0 -w -O2 -gcoff -quiet
 
