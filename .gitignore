@@ -2,6 +2,7 @@ GAME/*
 EXTRACTED/*
 *.bin
 *.cue
+bin
 build
 asm
 tools

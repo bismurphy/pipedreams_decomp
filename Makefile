@@ -21,7 +21,7 @@ CPP_FLAGS       += -Dmips -D__GNUC__=2 -D__OPTIMIZE__ -D__mips__ -D__mips -Dpsx 
 # select any gcc-#.#.#-psx.tar.gz file.
 CC1PSX          := ./bin/cc1-psx-263
 CC              := $(CC1PSX)
-CC_FLAGS        += -G0 -w -O2 -gcoff
+CC_FLAGS        += -G0 -w -O2 -gcoff -quiet
 
 PYTHON          := python3
 MASPSX_DIR      := $(TOOLS_DIR)/maspsx
