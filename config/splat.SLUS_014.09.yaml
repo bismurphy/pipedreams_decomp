@@ -50,13 +50,26 @@ segments:
   - name: header
     type: header
     start: 0x0
-
-  - name: main
+    
+  # 3 C functions at the top prior to the normal rodata/C/data setup
+  # needs to be its own segment to avoid lumping into the same .text ordering
+  - name: baby
     type: code
     start: 0x800
     vram: 0x80010000
     # bss_size: Please fill out this value when you figure out the bss size
     subsegments:
-      - [0x800, c, 800] # estimated
-      - [0x960, data, 960] # estimated
+      - [0x800, c, 800]
+  - [0x960]
+
+  - name: main
+    type: code
+    start: 0x960
+    vram: 0x80010160
+    align: 4
+    # bss_size: Please fill out this value when you figure out the bss size
+    subsegments:
+      - [0x960, .rodata, 5D3C]
+      - [0x5D3C, c, 5D3C]
+      - [0x708C4, data, 708C4]
   - [0x91000]

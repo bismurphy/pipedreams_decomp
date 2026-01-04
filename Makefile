@@ -19,15 +19,17 @@ CPP_FLAGS       += -Dmips -D__GNUC__=2 -D__OPTIMIZE__ -D__mips__ -D__mips -Dpsx 
 # This is your compiler - be very prepared to change it.
 # Get your compiler from: https://github.com/decompals/old-gcc/releases
 # select any gcc-#.#.#-psx.tar.gz file.
-CC1PSX          := ./bin/cc1-psx-272
+CC1PSX          := ./bin/cc1-psx-280
 CC              := $(CC1PSX)
-CC_FLAGS        += -G0 -w -O2 -gcoff -quiet
+CC_FLAGS        += -G0 -w -O2 -gcoff -quiet -mno-split-addresses
 
 PYTHON          := python3
 MASPSX_DIR      := $(TOOLS_DIR)/maspsx
 MASPSX_APP      := $(MASPSX_DIR)/maspsx.py
 MASPSX_FLAGS    := --expand-div --aspsx-version=2.05 -G4 --use-comm-section
 MASPSX          := $(PYTHON) $(MASPSX_APP) $(MASPSX_FLAGS)
+
+MENOSPSX        := $(PYTHON) tools/menospsx/menospsx.py
 
 AS              := $(CROSS)as
 AS_FLAGS        += -Iinclude -march=r3000 -no-pad-sections -G0
@@ -61,7 +63,7 @@ endef
 
 $(BUILD_DIR)/%.c.o: %.c $(MASPSX_APP) $(CC1PSX)
 	mkdir -p $(dir $@)
-	$(CPP) $(CPP_FLAGS) -lang-c $< | $(CC) $(CC_FLAGS) | $(MASPSX) | $(AS) $(AS_FLAGS) -o $@
+	$(CPP) $(CPP_FLAGS) -lang-c $< | $(CC) $(CC_FLAGS) | $(MENOSPSX) | $(AS) $(AS_FLAGS) -o $@
 
 $(BUILD_DIR)/%.s.o: %.s
 	mkdir -p $(dir $@)
@@ -102,3 +104,10 @@ check: config/checksums.sha
 clean:
 	rm -rf asm
 	rm -rf build
+
+deepclean: clean
+	rm -rf expected
+
+init: deepclean extract build check
+	mkdir -p expected/build
+	cp -r build expected
