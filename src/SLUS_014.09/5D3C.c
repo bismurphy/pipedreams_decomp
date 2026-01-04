@@ -504,7 +504,14 @@ INCLUDE_RODATA("asm/SLUS_014.09/nonmatchings/5D3C", D_80011C08);
 
 INCLUDE_ASM("asm/SLUS_014.09/nonmatchings/5D3C", func_80023478);
 
-INCLUDE_ASM("asm/SLUS_014.09/nonmatchings/5D3C", func_80023544);
+void func_8001DF38();
+s32 D_8009FE5C;
+
+void func_80023544(void) {
+    D_8009FE5C = 1;
+    func_8001DF38();
+}
+
 
 INCLUDE_ASM("asm/SLUS_014.09/nonmatchings/5D3C", func_8002356C);
 

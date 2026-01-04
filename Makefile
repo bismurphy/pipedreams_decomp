@@ -21,18 +21,16 @@ CPP_FLAGS       += -Dmips -D__GNUC__=2 -D__OPTIMIZE__ -D__mips__ -D__mips -Dpsx 
 # select any gcc-#.#.#-psx.tar.gz file.
 CC1PSX          := ./bin/cc1-psx-280
 CC              := $(CC1PSX)
-CC_FLAGS        += -G0 -w -O2 -gcoff -quiet
+CC_FLAGS        += -G4 -w -gcoff -quiet -O2
 
 PYTHON          := python3
 MASPSX_DIR      := $(TOOLS_DIR)/maspsx
 MASPSX_APP      := $(MASPSX_DIR)/maspsx.py
-MASPSX_FLAGS    := --expand-div --aspsx-version=2.05 -G4 --use-comm-section
+MASPSX_FLAGS    := --expand-div -G4 --use-comm-section --aspsx-version=2.50
 MASPSX          := $(PYTHON) $(MASPSX_APP) $(MASPSX_FLAGS)
 
-MENOSPSX        := $(PYTHON) tools/menospsx/menospsx.py
-
 AS              := $(CROSS)as
-AS_FLAGS        += -Iinclude -march=r3000 -no-pad-sections -G0
+AS_FLAGS        += -Iinclude -march=r3000 -no-pad-sections -G4
 
 LD              := $(CROSS)ld
 LD_FLAGS        := -nostdlib --no-check-sections
@@ -63,7 +61,7 @@ endef
 
 $(BUILD_DIR)/%.c.o: %.c $(MASPSX_APP) $(CC1PSX)
 	mkdir -p $(dir $@)
-	$(CPP) $(CPP_FLAGS) -lang-c $< | $(CC) $(CC_FLAGS) | $(MENOSPSX) | $(AS) $(AS_FLAGS) -o $@
+	$(CPP) $(CPP_FLAGS) -lang-c $< | $(CC) $(CC_FLAGS) | $(MASPSX) | $(AS) $(AS_FLAGS) -o $@
 
 $(BUILD_DIR)/%.s.o: %.s
 	mkdir -p $(dir $@)
