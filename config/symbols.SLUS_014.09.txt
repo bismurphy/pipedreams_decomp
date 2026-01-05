@@ -199,6 +199,7 @@ csincos = 0x80073300;
 ccos = 0x80073230;
 csin_1 = 0x80073420;
 csin = 0x800734C0;
+func_80073600 = 0x80073600;
 InitGeom = 0x80073608;
 InvSquareRoot = 0x80073690;
 VectorNormalS = 0x8007371C;
