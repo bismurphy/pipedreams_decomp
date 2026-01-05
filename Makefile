@@ -40,6 +40,7 @@ define list_src_files
 	$(foreach dir,$(ASM_DIR)/$(1),$(wildcard $(dir)/**.s))
 	$(foreach dir,$(ASM_DIR)/$(1)/data,$(wildcard $(dir)/**.s))
 	$(foreach dir,$(SRC_DIR)/$(1),$(wildcard $(dir)/**.c))
+	$(foreach dir,$(SRC_DIR)/$(1)/psxsdk,$(wildcard $(dir)/*.c))
 endef
 
 define list_o_files

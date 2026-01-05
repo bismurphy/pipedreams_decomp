@@ -42,6 +42,7 @@ options:
   data_string_encoding: ASCII
   rodata_string_guesser_level: 2
   data_string_guesser_level: 2
+  migrate_rodata_to_functions: True
 
   # Uncomment this line if you need to use the maspsx reorder workaround hack
   # https://github.com/mkst/maspsx?tab=readme-ov-file#include_asm-reordering-workaround-hack
@@ -70,7 +71,9 @@ segments:
     # bss_size: Please fill out this value when you figure out the bss size
     subsegments:
       - [0x960, .rodata, 5D3C]
+      - [0x4BBC, .rodata, psxsdk]
+
       - [0x5D3C, c, 5D3C]
-      - [0x63E00, data, 63E00] # this is more code but splat is being weird
+      - [0x4F294, c, psxsdk]
       - [0x708C4, data, 708C4]
   - [0x91000]
